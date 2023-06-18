@@ -40,7 +40,8 @@ console.log(express.static("../website"));
 const port = 5000;
 /* Spin up the server*/
 
-const server = app.listen(port || process.env.port, listening);
+const server = app.listen(process.env.PORT || port, listening);
+// || port
 
 function listening() {
   // console.log(server);
