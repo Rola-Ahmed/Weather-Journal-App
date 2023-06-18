@@ -40,7 +40,7 @@ console.log(express.static("../website"));
 const port = 5000;
 /* Spin up the server*/
 
-const server = app.listen(port, listening);
+const server = app.listen(port || process.env.PORT, listening);
 
 function listening() {
   // console.log(server);
@@ -77,7 +77,7 @@ function AddWeather(req, res) {
 
   console.log("projectData" + projectData);
 
-  res.send(projectData); 
+  res.send(projectData);
   //res.end();
 }
 app.get("/getWeatherDetails", GetWeather);
