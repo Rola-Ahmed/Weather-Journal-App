@@ -10,6 +10,8 @@ const express = require("express");
 const bodyParser = require("body-parser"); //by5od body y7wlo li json
 //const fetch = require("node-fetch");
 
+require("dotenv").config();
+
 //to install the libraried
 //npm intall  DependenciesName in the project through terminal
 
@@ -36,19 +38,19 @@ app.use(cors({ origin: true }));
 app.use(express.static("website"));
 console.log(express.static("../website"));
 //  app.use(express.static("website"));
-
 //const port = 5000;
-const port = process.env.PORT || 8080;
+const node_port = process.env.PORT || 8080;
 /* Spin up the server*/
 
-const server = app.listen(port, listening);
+const server = app.listen(node_port, listening);
 // || port
 
 function listening() {
   // console.log(server);
-  console.log(`running on localhost: ${port} || ${process.env.port}`);
+  //console.log(process.env);
+  console.log(`running on localhost: ${node_port} || ${process.env.PORT}`);
 
-  http: console.log(`running on http://localhost:${port}`);
+  http: console.log(`running on http://localhost:${node_port}`);
 }
 
 //console.log(app.post("/addWeatherDetails", AddWeather));
