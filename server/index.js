@@ -37,15 +37,16 @@ app.use(express.static("website"));
 console.log(express.static("../website"));
 //  app.use(express.static("website"));
 
-const port = 5000;
+//const port = 5000;
+const port = process.env.PORT || 8080;
 /* Spin up the server*/
 
-const server = app.listen(process.env.PORT , listening);
+const server = app.listen(port, listening);
 // || port
 
 function listening() {
   // console.log(server);
-  console.log(`running on localhost: ${port} || ${process.env.PORT}`);
+  console.log(`running on localhost: ${port} || ${process.env.port}`);
 
   http: console.log(`running on http://localhost:${port}`);
 }
