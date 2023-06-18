@@ -1,7 +1,7 @@
 // Setup empty JS object to act as endpoint for all routes
 // created an object that acts as the app API endpoint
 //projectData = {};
-projectData = [];
+projectData = {};
 
 // Require Express to run server and routes
 //Project Dependencies
@@ -33,7 +33,7 @@ app.use(cors({ origin: true }));
 // Initialize the main project folder
 // i have a folder(folder name website) that is static
 //app.UseStaticFiles();
-app.use(express.static("../website"));
+app.use(express.static("website"));
 console.log(express.static("../website"));
 //  app.use(express.static("website"));
 
@@ -49,26 +49,42 @@ function listening() {
   http: console.log(`running on http://localhost:${port}`);
 }
 
-console.log(app.post("/addWeatherDetails", AddWeather));
-
+//console.log(app.post("/addWeatherDetails", AddWeather));
+app.post("/addWeatherDetails", AddWeather);
 function AddWeather(req, res) {
   //save all the data i got from the url into projectData
 
   //0
-  console.log(req.body);
-  projectData = {
+
+  /* projectData = {
     date: req.body.newDate,
     temperature: req.body.tempValue,
     feelings: req.body.FeelingsElement,
-  };
+  };*/
 
-  //projectData = req.body;
+  projectData = req.body;
 
   //projectData.push(newDataEntry);
 
   //projectData.push(req.body);
-  //res.send(projectData);
+  console.log(
+    "---------------------------------------------------------------------"
+  );
+  console.log("req.body" + req.body);
+  console.log("1");
+  console.log(req.body);
+  //console.log(req.body);
+
+  console.log("projectData" + projectData);
+
+  res.send(projectData); 
   //res.end();
 }
+app.get("/getWeatherDetails", GetWeather);
 
-app.post("/addWeatherDetails", AddWeather);
+function GetWeather(req, res) {
+  console.log(`---------REQUEST---- ${req}`);
+  console.log(projectData);
+
+  res.send(projectData);
+}

@@ -1,6 +1,33 @@
 "use strict";
+/*const x = { 1: 2, 2: 2, 3: 4 };
+console.log(x);*/
+
 let d = new Date();
-let newDate = d.getMonth() + "." + d.getDate() + "." + d.getFullYear();
+let newDate =
+  d.getMonth() +
+  1 +
+  "/" +
+  d.getDate() +
+  "/" +
+  d.getFullYear() +
+  " Time " +
+  d.getHours() +
+  ":" +
+  d.getMinutes() +
+  ":" +
+  d.getSeconds();
+/*let newDate =
+  d.getMonth() +
+  "." +
+  d.getDate() +
+  "." +
+  d.getFullYear() +
+  " Time " +
+  d.getHours() +
+  ":" +
+  d.getMinutes() +
+  ":" +
+  d.getSeconds();*/
 console.log(`new date ${newDate}`);
 
 const generateButton = document.getElementById("generate");
@@ -38,7 +65,9 @@ async function getWeather(url = "", zip = "", key = "", FeelingsElement = "") {
     console.log(name);
     console.log(country);
     console.log("1");
-    console.log(`${newDate}, ${tempValue}, ${FeelingsElement}`);
+    console.log(
+      `${newDate}, ${tempValue}, ${FeelingsElement},${humidityValue},${pressureValue},${name},${country}`
+    );
     // postData("/addWeatherDetails", { newDate, tempValue, FeelingsElement });
     console.log("2");
     //date: newDate,temperature: tempValue,feelings: FeelingsElement,
@@ -52,21 +81,25 @@ async function getWeather(url = "", zip = "", key = "", FeelingsElement = "") {
 
     console.log("5");
 
-    let object = {
+    const object = {
       date: newDate,
       temperature: tempValue,
       feelings: FeelingsElement,
+      humidity: humidityValue,
+      pressure: pressureValue,
+      city: name,
+      country: country,
     };
-    let x, y, z;
+    /*let x, y, z;
     x = object.date;
     y = object.tempElement;
-    z = object.feelings;
-
-    postData("/addWeatherDetails", {
-      date: newDate,
-      temperature: tempValue,
-      feelings: FeelingsElement,
-    });
+    z = object.feelings;*/
+    console.log(object);
+    // console.log(JSON.stringify(object));
+    //let yy = Object.values(object);
+    ///console.log(typeof yy);
+    console.log(Object.values(object));
+    postData("/addWeatherDetails", object);
 
     //  return weatherDataResponce;
     return weatherDataResponce;
@@ -75,84 +108,90 @@ async function getWeather(url = "", zip = "", key = "", FeelingsElement = "") {
   }
 }
 
-// let object = {
-//   date: 1,
-//   temperature: "tempValue",
-//   feelings: "FeelingsElement",
-// };
-// postData("/addWeatherDetails", object);
-
 async function postData(url, data = {}) {
-  console.log(`url ${url}`);
-  // console.log(`data ${data}`);
+  //console.log(`url ${url}`);  ////uncomment
+  console.log(data);
   const response = await fetch(url, {
     method: "POST",
+
     credentials: "same-origin",
     headers: {
       "Content-Type": " application/json; charset=utf-8",
     },
     body: JSON.stringify(data),
+    /* cookies: browser.cookies.remove(
+      data // object
+    ),*/
   });
-  console.log(data);
-  console.log(response);
-  try {
-    /* const newData = await response.json();
-    console.log(newData);
-    // return newData;*/
+  //console.log(`data ${data}`);
+  // console.log(`response ${response.json()}`); //response [object Promise]
+  //response.then((res) => console.log(res.json()));
+  //console.log(`response ${response}`);
+  // const newData = await response.json();
+  // console.log(newData);
+
+  //  const resultData = await fetch("/getWeatherDetails").then((res) => res.jon());
+  // console.log(resultData);
+
+  //step 3
+  if (response.ok) {
+    console.log(await response);
+    console.log(`response ${response.status}`);
+    console.log("yess");
+  } else {
+    console.log("NO");
+  }
+  /*try {
+    //step 3
+    /*const resultData = await fetch("/getWeatherDetails").then((res) =>
+      res.json()
+    );
+    console.log(resultData);
+
+    document.getElementById("date").innerHTML = "date: " + resultData.date;
+    document.getElementById("content").innerHTML =
+      "how do you feel today!: " + resultData.feelings;
+    document.getElementById("temp").innerHTML =
+      "temperatur: " + Math.round(resultData.temperature) + " degrees";
+    document.getElementById("humidity").innerHTML =
+      "humidity " + resultData.humidity;
+    document.getElementById("pressure").innerHTML =
+      "pressure: " + resultData.pressure;
+    document.getElementById("city").innerHTML = "city:" + resultData.city;
+    document.getElementById("country").innerHTML =
+      "country: " + resultData.country;
+    //fetch();
+    // return newData;
   } catch (error) {
     console.log("error", error);
-  }
+  }*/
+
+  const retrieveData = async () => {
+    const request = await fetch("/getWeatherDetails");
+    try {
+      // Transform into JSON
+      const resultData = await request.json();
+      console.log(resultData);
+      // Write updated data to DOM elements
+      document.getElementById("date").innerHTML = "date: " + resultData.date;
+      document.getElementById("content").innerHTML =
+        "how do you feel today!: " + resultData.feelings;
+      document.getElementById("temp").innerHTML =
+        "temperatur: " + Math.round(resultData.temperature) + " degrees";
+      document.getElementById("humidity").innerHTML =
+        "humidity " + resultData.humidity;
+      document.getElementById("pressure").innerHTML =
+        "pressure: " + resultData.pressure;
+      document.getElementById("city").innerHTML = "city:" + resultData.city;
+      document.getElementById("country").innerHTML =
+        "country: " + resultData.country;
+    } catch (error) {
+      console.log("error", error);
+      // appropriately handle the error
+    }
+  };
+  retrieveData();
 }
-
-//     // postData("/addWeathe rDetails", { newDate, tempValue, FeelingsElement });
-//     console.log("2");
-//     //date: newDate,temperature: tempValue,feelings: FeelingsElement,
-//     // newDate, tempValue, FeelingsElement
-
-//     // postData("/addWeatherDetails", {
-//     //   newDate,
-//     //   tempValue,
-//     //   FeelingsElement,
-//     // });
-
-//     console.log("5");
-
-//     return weatherDataResponce;
-//   } catch (err) {
-//     console.log("Error:", err.message);
-//   }
-// };
-
-// const postData = async (url = "", data = {}) => {
-//   //step 2
-//   //save the data in your application
-//   //"/addWeatherDetails"
-//   const response = await fetch(url, {
-//     method: "POST",
-//     //mode: "cors", // no-cors, *cors, same-origin
-//     // cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
-//     // port: 5000,
-//     credentials: "same-origin",
-//     headers: {
-//       "Content-Type": "application/json",
-
-//       // "Access-Control-Allow-Origin": "*",
-//       // Accept: "application/json",
-//       // "Access-Control-Allow-Origin": "*",
-//       // "Access-Control-Allow-Headers":
-//       //   "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-//       // "Access-Control-Request-Method": "GET, POST, DELETE, PUT, OPTIONS",
-//     },
-//     body: JSON.stringify(data),
-//   });
-//   // console.log("response.body");
-//   if (!response.ok) {
-//     console.log("errrrror");
-//     console.log(await response.description);
-//   }
-//   const dataaa = await response.json();
-//   console.log(dataaa);
-// };
 
 // const getData = async (url = "") => {
 //   const request = await fetch(url);
@@ -164,5 +203,3 @@ async function postData(url, data = {}) {
 //     // appropriately handle the error
 //   }
 // };
-
-///*"start": "nodemon server.js"*/
