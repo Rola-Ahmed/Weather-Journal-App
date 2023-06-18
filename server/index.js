@@ -40,12 +40,12 @@ console.log(express.static("../website"));
 const port = 5000;
 /* Spin up the server*/
 
-const server = app.listen(process.env.PORT || port, listening);
+const server = app.listen(process.env.PORT , listening);
 // || port
 
 function listening() {
   // console.log(server);
-  console.log(`running on localhost: ${port}`);
+  console.log(`running on localhost: ${port} || ${process.env.PORT}`);
 
   http: console.log(`running on http://localhost:${port}`);
 }
