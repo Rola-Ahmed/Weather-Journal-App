@@ -2,15 +2,14 @@
 // created an object that acts as the app API endpoint
 //projectData = {};
 projectData = {};
-
 // Require Express to run server and routes
 //Project Dependencies
+require("dotenv").config();
+console.log("envvvvv ", process);
 const cors = require("cors");
 const express = require("express");
 const bodyParser = require("body-parser"); //by5od body y7wlo li json
 //const fetch = require("node-fetch");
-
-require("dotenv").config();
 
 //to install the libraried
 //npm intall  DependenciesName in the project through terminal
