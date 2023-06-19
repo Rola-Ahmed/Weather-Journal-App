@@ -575,3 +575,4 @@ node_modules/dotenv/lib/main.js
 node_modules/dotenv/lib/main.d.ts
 node_modules/dotenv/LICENSE
 node_modules/dotenv/package.json
+server/server copy.js
