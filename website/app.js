@@ -40,7 +40,7 @@ generateButton.addEventListener("click", performAction);
 async function performAction(e) {
   const zipCodeElement = document.getElementById("zip").value;
   const FeelingsElement = document.getElementById("feelings").value;
-  const apiKey = "a9de2f4e9d79dd9b4df1e60f824ced20&units=imperial";
+
   const baseURL = "http://api.openweathermap.org/data/2.5/weather?zip=";
   getWeather(baseURL, zipCodeElement, apiKey, FeelingsElement);
 }
