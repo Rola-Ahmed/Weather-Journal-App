@@ -6,12 +6,17 @@ This Project build's an asynchronous web application that uses user data and Web
 ## Table of Contents
 
 -Server Folder
+
 server.js
 
 -Website Folder
+
 index.html
+
 app.js
+
 style.css
+
 README.md file
 
 ## Usage
