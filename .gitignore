@@ -578,3 +578,8 @@ server/server copy.js
 website/app copy 2.js
 website/app copy.js
 website/comments.js
+node_modules/.bin/if-env
+*.cmd
+node_modules/.bin/npm-run-all
+node_modules/babel-runtime/helpers/_extends.js
+node_modules/babel-polyfill/dist/polyfill.js
